@@ -1,0 +1,216 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: lampralexandros@gmail.com
+  description: This is a sample openApi document
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://wabli.netlify.app/
+  title: TempApi
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- description: wabli-bme-1
+  url: https://83.212.100.226:4001/v1
+security:
+- {}
+tags:
+- description: not yet ready
+  name: contact
+paths:
+  /contact:
+    post:
+      operationId: createcontact
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contact'
+        description: data to be created
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contact'
+          description: successful operation
+      summary: Creates the data
+      tags:
+      - contact
+      x-eov-operation-handler: controllers/ContactController
+  /contact/{contactId}:
+    delete:
+      operationId: deletecontact
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: successful operation
+      summary: Delete the element
+      tags:
+      - contact
+      x-eov-operation-handler: controllers/ContactController
+    get:
+      operationId: getcontact
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contact'
+          description: successful operation
+      summary: Get the element
+      tags:
+      - contact
+      x-eov-operation-handler: controllers/ContactController
+    put:
+      operationId: updatecontact
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contact'
+        description: data to be updated
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contact'
+          description: successful operation
+      summary: Updates the element
+      tags:
+      - contact
+      x-eov-operation-handler: controllers/ContactController
+  /contact/getAll:
+    get:
+      operationId: getAllcontact
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/contact'
+                type: array
+          description: successful operation
+      summary: Get all the data
+      tags:
+      - contact
+      x-method-getAll: "true"
+      x-eov-operation-handler: controllers/ContactController
+  /contact/getByParams:
+    get:
+      operationId: getByParamscontact
+      parameters:
+      - description: the query based on which the search is performed
+        explode: true
+        in: query
+        name: filter
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/contact'
+                type: array
+          description: successful operation
+      summary: Get all the data based on user query
+      tags:
+      - contact
+      x-method-get-by-params: "true"
+      x-eov-operation-handler: controllers/ContactController
+components:
+  schemas:
+    contact:
+      example:
+        help: help
+        img:
+          data: data
+          name: name
+        role: role
+        phone: 0.8008281904610115
+        interaction: interaction
+        fullName: fullName
+        company: company
+        _id: _id
+        outcome: outcome
+        email: email
+      properties:
+        _id:
+          type: string
+        fullName:
+          type: string
+        role:
+          type: string
+        img:
+          $ref: '#/components/schemas/contact_img'
+        company:
+          type: string
+        help:
+          type: string
+        interaction:
+          type: string
+        outcome:
+          type: string
+        email:
+          type: string
+        phone:
+          format: double
+          type: number
+      required:
+      - company
+      - email
+      - fullName
+      - help
+      - img
+      - interaction
+      - outcome
+      - phone
+      - role
+      type: object
+    contact_img:
+      example:
+        data: data
+        name: name
+      properties:
+        data:
+          type: string
+        name:
+          type: string
+      type: object
+      x-isSchemaOnly: "true"
